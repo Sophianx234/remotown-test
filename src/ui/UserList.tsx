@@ -10,7 +10,7 @@ type userListProps = {
 }
 function UserList({users}:userListProps) {
   return (
-    <div>
+    <div className="card-list">
       {users.map((user:userInfo)=><UserCard key={user.id} user={user}/>)}
     </div>
   )

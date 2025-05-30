@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import UserList from './ui/UserList'
+import UserList, { type userInfo } from './ui/UserList'
 
 function App() {
-  const [count, setCount] = useState(0)
-const users = [
+  const [count, setCount] = useState<number>(0)
+let usersData = [
   {
     id: 1,
     name: "Sophian Abdul Rahman",
@@ -24,15 +22,34 @@ const users = [
   }
 ];
 
-const [newUser, setNewUser] = useState()
+const [newUser, setNewUser] = useState({
+  name:'',
+  email:''
+})
+const [users, setUsers] = useState<userInfo[]>(usersData)
+function handleAddNewUser(newUser){
+   newUser = {...newUser,id:users.length+1}
+   setUsers(users=>[...users,newUser])
+  
+
+}
   return (
-    <>
+    <div className='container'>
       <UserList users={users}/>
 
-      <form >
-    <input type="text" name="" id="" />
+
+      <form className='form' >
+        <label htmlFor="username">
+
+    <input type="text" onChange={e=>setNewUser(user=>({...user,name:e.target.value}))} placeholder='Username' name="" id="username" />
+        </label>
+        <label htmlFor="email" className=''>
+
+    <input type="email" onChange={e=>setNewUser(user=>({...user,email:e.target.value}))} placeholder='user@example.com' name="" id="email" />
+        </label>
       </form>
-    </>
+      <button onClick={()=>handleAddNewUser(newUser)} >Add User</button>
+    </div>
   )
 }
 
